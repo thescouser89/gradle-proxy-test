@@ -1,17 +1,13 @@
 plugins {
-    id "io.github.http-builder-ng.http-plugin" version "0.1.1"
+    id "de.undercouch.download" version "4.1.2"
 }
 
-task notify(type: io.github.httpbuilderng.http.HttpTask){
-    config {
-        request.uri = 'http://something.com'
-    }
-    post {
-        request.uri.path = '/notify'
-        request.body = [event: 'activated']
-        request.contentType = "application/json"
-        response.success {
-            println 'The event notification was successful'
-        }
-    }
+apply plugin: 'java'
+apply plugin: 'de.undercouch.download'
+
+import de.undercouch.gradle.tasks.download.Download
+
+task downloadFile(type: Download) {
+    src 'https://repo1.maven.org/maven2/org/jboss/pnc/bacon/cli/2.1.8/cli-2.1.8.pom'
+    dest 'localDir'
 }
