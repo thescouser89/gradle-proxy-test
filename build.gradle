@@ -1,0 +1,17 @@
+plugins {
+    id "io.github.http-builder-ng.http-plugin" version "0.1.1"
+}
+
+task notify(type: io.github.httpbuilderng.http.HttpTask){
+    config {
+        request.uri = 'http://something.com'
+    }
+    post {
+        request.uri.path = '/notify'
+        request.body = [event: 'activated']
+        request.contentType = "application/json"
+        response.success {
+            println 'The event notification was successful'
+        }
+    }
+}
